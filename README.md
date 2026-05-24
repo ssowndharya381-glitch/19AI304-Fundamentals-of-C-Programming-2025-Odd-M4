@@ -41,7 +41,53 @@
 ### Step 14: 
   Stop
 # Program:
+```
+#include <stdio.h>
+int isleapyear()
+{
+    int year;
+    scanf("%d",&year);
+    return ((year % 4 == 0 && year % 100!=0)||(year%400==0)); 
+}
+int validateDate()
+{
+    int day,month,year;
+    scanf("%d/%d/%d",&day,&month,&year);
+    if(year<1000||year>9999)
+    {
+        printf("Year is not valid.\n");
+        return 0;
+    }
+    if(month<1||month>12)
+    {
+        printf("Month is not valid.\n");
+        return 0;
+    }
+    int daysInMonth[]={31,28,31,30,31,30,31,31,30,31,30,31};
+    if(isleapyear(year))
+    {
+        daysInMonth[1]=29;
+    }
+    if(day<1||day>daysInMonth[month-1])
+    {
+        printf("Day is invalid.\n");
+        return 0;
+    }
+    printf("Day is valid.\n");
+    return 0;
+}
+
+
+int main(){
+    // int day,month,year;
+    // scanf("%d%d%d",&day,&month,&year);
+    validateDate();
+    return 0;
+}
+```
 # Output:
+<img width="915" height="362" alt="image" src="https://github.com/user-attachments/assets/327d9746-4043-484f-8969-54fb47382f7c" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -89,7 +135,31 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 13: 
   Stop
 # Program:
+```
+#include <stdio.h>
+int max(int a, int b) {
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+int min(int a, int b) {
+    if (a < b)
+        return a;
+    else
+        return b;
+}
+int main() {
+    int num1, num2;
+    scanf("%d %d", &num1, &num2);
+    printf("Maximum = %d\n", max(num1, num2));
+    printf("Minimum = %d\n", min(num1, num2));
+    return 0;
+}
+```
 # Output:
+<img width="926" height="374" alt="image" src="https://github.com/user-attachments/assets/34aea606-9c56-498c-b479-6844242478ec" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -137,7 +207,29 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11: 
  Stop
 # Program:
+```
+#include <stdio.h>
+float cToF(float c) {
+    return (c * 9.0 / 5.0) + 32;
+}
+
+float fToC(float f) {
+    return (f - 32) * 5.0 / 9.0;
+}
+int main() {
+    float c, f;
+    printf("Enter Celsius value: ");
+    scanf("%f", &c);
+    printf("Enter Fahrenheit value: ");
+    scanf("%f", &f);
+    printf("\nCelsius to Fahrenheit = %.2f\n", cToF(c));
+    printf("Fahrenheit to Celsius = %.2f\n", fToC(f));
+    return 0;
+}
+```
 # Output:
+<img width="920" height="347" alt="image" src="https://github.com/user-attachments/assets/7ccc10f5-6ac6-4d75-8313-7e71ccdb3494" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -185,7 +277,59 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 7: 
   Stop
 # Program:
+```
+#include <stdio.h>
+
+int main()
+{
+    int n,m;
+    scanf("%d %d",&n,&m);
+    int a[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            scanf("%d",&a[i][j]);
+        }
+    }
+    printf("The Matrix is\n");
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            printf("%d ",a[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Spiral Matrix : ");
+    int top=0,bottom=n-1,left=0,right=m-1;
+    int first=1;
+    while(top<=bottom && left<=right){
+        for(int i=left;i<=right;i++){
+            if(!first);
+            printf("%d ",a[top][i]);
+            first=0;
+        }
+        top++;
+        for(int i=top;i<=bottom;i++){
+            printf("%d ",a[i][right]);
+        }
+        right--;
+        if(top<=bottom){
+            for(int i=right;i>=left;i--){
+                printf("%d ",a[bottom][i]);
+            }
+            bottom--;
+        }
+        if(left<=right){
+            for(int i=bottom;i>=top;i--){
+                printf("%d ",a[i][left]);
+            }
+            left++;
+        }
+    }
+    return 0;
+}
+```
 # Output:
+<img width="924" height="362" alt="image" src="https://github.com/user-attachments/assets/b52f0230-bd43-403e-afdd-6ac591721069" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -220,7 +364,49 @@ To build a C program to convert a string as described above, using a user-define
 ### Step 6: 
  Stop
 # Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+void convertSpecial(char str[])   // parameterized, no return
+{
+    int i, len;
+    len = strlen(str);
+    // Remove trailing newline if present
+    if(len > 0 && str[len-1] == '\n')
+    {
+        str[len-1] = '\0';
+        len--;
+    }
+    if(len == 0)
+        return;
+    str[0] = toupper(str[0]);
+    str[len-1] = toupper(str[len-1]);
+    for(i = 0; i < len; i++)
+    {
+        if(str[i] == ' ')
+        {
+            if(i > 0)
+                str[i-1] = toupper(str[i-1]);
+
+            if(i + 1 < len)
+             str[i+1] = toupper(str[i+1]);
+        }
+    }
+}
+int main()
+{
+    char str[100];
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    convertSpecial(str);   // function call
+    printf("Converted string: %s\n", str);
+    return 0;
+}
+```
 # Output:
+<img width="920" height="398" alt="image" src="https://github.com/user-attachments/assets/ad16a113-b0c2-471e-adf3-bc37c48c5e91" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
